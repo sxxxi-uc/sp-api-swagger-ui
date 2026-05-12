@@ -1,0 +1,24 @@
+services:
+  docs:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      URLS: |
+        [
+          { url: "/specs/orders_2026-01-01.json", name: "Orders API" },
+          { url: "/specs/messaging.json", name: "Messaging API" },
+          { url: "/specs/notifications.json", name: "Notifications API" },
+          { url: "/specs/feeds.json", name: "Feeds API" },
+          { url: "/specs/listingsItems_2020-09-01.json", name: "Listings API (2020)" },
+          { url: "/specs/listingsItems_2021-08-01.json", name: "Listings API (2021)" },
+        ]
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./specs
+          target: /usr/share/nginx/html/specs
+        - action: rebuild
+          path: compose.yaml
