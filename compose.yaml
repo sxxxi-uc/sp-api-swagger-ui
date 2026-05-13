@@ -14,6 +14,9 @@ services:
           { url: "/specs/feeds.json", name: "Feeds API" },
           { url: "/specs/listingsItems_2020-09-01.json", name: "Listings API (2020)" },
           { url: "/specs/listingsItems_2021-08-01.json", name: "Listings API (2021)" },
+          { url: "/specs/financesV0.json", name: "Finances API v0" },
+          { url: "/specs/finances_2024-06-19.json", name: "Finances API (2024-06-19)" },
+          { url: "/specs/transfers_2024-06-01.json", name: "Transfers API (2024-06-01)" },
         ]
     develop:
       watch:
