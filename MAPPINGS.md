@@ -31,7 +31,7 @@ const package: OrderPackage = order.packages[0];
 - 注文番号: `order.orderId`
 - 注文日時: `order.createdTime`
 - ステータス: `order.fulfilment.fulfilmentStatus`
-- Amazon警告: 説明が欲しいです **検討中**
+- ~~Amazon警告~~
 
 
 #### 注文主情報
@@ -49,32 +49,19 @@ const package: OrderPackage = order.packages[0];
 - 住所: `#{order.recipient.deliveryAddress.stateOrRegion} #{order.recipient.deliveryAddress.city} #{order.recipient.deliveryAddress.districtOrCounty}` または `order.recipient.deliveryAddress.addressLine1`
 - 電話番号: `order.recipient.deliveryAddress.phone`
 - 配送希望日: `order.fulfilment.deliverByWindow`（範囲）
-- 配送希望時間帯: B2Cの場合は検知できません **検討中**
+- 配送希望時間帯: B2Cの場合は検知できません（Amazonビジネスのみ）
 
 
 #### 商品情報
 
 - 商品名: `orderItem.product.title`
-- Amazon商品管理番号: `orderItem.product.sellerSku` とかでしょうか **検討中**
-- Amazon掲載ステータス: 👇
-
-```ts
-// Listing API を使用
-const marketplaceId: string = "...";
-const item: Item = await fetch("/listings/2021-08-01/items/{sellerId}/{sku}");
-
-const japanMarketplaceStatus: ItemSummaryByMarketplace = item?.summaries
-  .filter(s => s.marketplaceId === marketplaceId)[0];
-
-const status: string = japanMarketplaceStatus?.status ?? '非掲載'
-```
-
+- Amazon商品管理番号: `orderItem.product.sellerSku`
+- ~~Amazon掲載ステータス~~
 - ~~EC注文フラグ~~
 - ~~EC画像フラグ~~
 - ~~Amazon商品連携ステータス~~
-- Amazon商品連携ステータス: **検討中** 仕組みがわかりません
-- ~~(楽天）画像連携ステータス~~
-- Amazon画像連携ステータス: **検討中** 仕組みがわかりません
+- ~~Amazon商品連携ステータス~~
+- ~~Amazon画像連携ステータス~~
 - 販売価格: `orderItem.product.price.unitPrice`(税抜)
 
 
@@ -104,20 +91,7 @@ const status: string = japanMarketplaceStatus?.status ?? '非掲載'
 
 - 支払方法: `payment.paymentMethod`
 - 商品金額: `payment.paymentAmount.amount`
-- 送料、ラッピング料、決済手数料: 👇
-
-```js
-// Finances API
-// 配送されるまで以下の情報は反映されません
-listFinancialEventsByOrderId(orderId)
-  └── ShipmentEventList[0]
-        └── ShipmentItemList[0]
-              └── ItemChargeList
-                    ├── ShippingCharge    → 送料
-                    ├── Giftwrap          → ラッピング料
-                    └── CODItemCharge     → 決済手数料
-```
-
+- ~~送料、ラッピング料、決済手数料~~
 - ポイント利用額: 👇
 
 ```ts
@@ -145,7 +119,7 @@ const promotions: ItemPromotionBreakdown[] = order.orderItems.flatMap(i => i.pro
 #### 配送内容
 
 - 出荷日: `package.shipTime`
-- 配送伝票番号: **検討中** Shipment API を用いて生成された伝票情報を読み込むか、手動で設定
+- ~~配送伝票番号~~
 
 
 ### 注文一覧
@@ -191,6 +165,11 @@ const orders = await fetch(`https://foo.bar/baz?${queryParams}`);
 - ~~ステータス~~
 - ~~単品識別番号~~
 - 注文主名: `order.buyer.buyerName`
-- 発送日: **検討中**
+- 発送日: 👇
+
+```ts
+// 各パッケージの発送日
+const packagesShipDates = orders.packages.map(p => p.shipTime);
+```
 
 ## 参考
