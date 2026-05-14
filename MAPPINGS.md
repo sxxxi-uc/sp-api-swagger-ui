@@ -104,20 +104,7 @@ const status: string = japanMarketplaceStatus?.status ?? '非掲載'
 
 - 支払方法: `payment.paymentMethod`
 - 商品金額: `payment.paymentAmount.amount`
-- 送料、ラッピング料、決済手数料: 👇
-
-```js
-// Finances API
-// 配送されるまで以下の情報は反映されません
-listFinancialEventsByOrderId(orderId)
-  └── ShipmentEventList[0]
-        └── ShipmentItemList[0]
-              └── ItemChargeList
-                    ├── ShippingCharge    → 送料
-                    ├── Giftwrap          → ラッピング料
-                    └── CODItemCharge     → 決済手数料
-```
-
+- ~~送料、ラッピング料、決済手数料~~
 - ポイント利用額: 👇
 
 ```ts
