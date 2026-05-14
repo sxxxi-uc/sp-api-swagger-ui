@@ -31,7 +31,7 @@ const package: OrderPackage = order.packages[0];
 - 注文番号: `order.orderId`
 - 注文日時: `order.createdTime`
 - ステータス: `order.fulfilment.fulfilmentStatus`
-- Amazon警告: 説明が欲しいです **検討中**
+- ~~Amazon警告~~
 
 
 #### 注文主情報
@@ -49,7 +49,7 @@ const package: OrderPackage = order.packages[0];
 - 住所: `#{order.recipient.deliveryAddress.stateOrRegion} #{order.recipient.deliveryAddress.city} #{order.recipient.deliveryAddress.districtOrCounty}` または `order.recipient.deliveryAddress.addressLine1`
 - 電話番号: `order.recipient.deliveryAddress.phone`
 - 配送希望日: `order.fulfilment.deliverByWindow`（範囲）
-- 配送希望時間帯: B2Cの場合は検知できません **検討中**
+- 配送希望時間帯: B2Cの場合は検知できません（Amazonビジネスのみ）
 
 
 #### 商品情報
@@ -165,6 +165,11 @@ const orders = await fetch(`https://foo.bar/baz?${queryParams}`);
 - ~~ステータス~~
 - ~~単品識別番号~~
 - 注文主名: `order.buyer.buyerName`
-- 発送日: **検討中**
+- 発送日: 👇
+
+```ts
+// 各パッケージの発送日
+const packagesShipDates = orders.packages.map(p => p.shipTime);
+```
 
 ## 参考
