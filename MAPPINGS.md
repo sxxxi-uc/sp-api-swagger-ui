@@ -55,26 +55,13 @@ const package: OrderPackage = order.packages[0];
 #### 商品情報
 
 - 商品名: `orderItem.product.title`
-- Amazon商品管理番号: `orderItem.product.sellerSku` とかでしょうか **検討中**
-- Amazon掲載ステータス: 👇
-
-```ts
-// Listing API を使用
-const marketplaceId: string = "...";
-const item: Item = await fetch("/listings/2021-08-01/items/{sellerId}/{sku}");
-
-const japanMarketplaceStatus: ItemSummaryByMarketplace = item?.summaries
-  .filter(s => s.marketplaceId === marketplaceId)[0];
-
-const status: string = japanMarketplaceStatus?.status ?? '非掲載'
-```
-
+- Amazon商品管理番号: `orderItem.product.sellerSku`
+- ~~Amazon掲載ステータス~~
 - ~~EC注文フラグ~~
 - ~~EC画像フラグ~~
 - ~~Amazon商品連携ステータス~~
-- Amazon商品連携ステータス: **検討中** 仕組みがわかりません
-- ~~(楽天）画像連携ステータス~~
-- Amazon画像連携ステータス: **検討中** 仕組みがわかりません
+- ~~Amazon商品連携ステータス~~
+- ~~Amazon画像連携ステータス~~
 - 販売価格: `orderItem.product.price.unitPrice`(税抜)
 
 
@@ -132,7 +119,7 @@ const promotions: ItemPromotionBreakdown[] = order.orderItems.flatMap(i => i.pro
 #### 配送内容
 
 - 出荷日: `package.shipTime`
-- 配送伝票番号: **検討中** Shipment API を用いて生成された伝票情報を読み込むか、手動で設定
+- ~~配送伝票番号~~
 
 
 ### 注文一覧
